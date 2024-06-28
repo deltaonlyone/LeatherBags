@@ -28,12 +28,12 @@ public class BagController {
 	}
 
 	@PutMapping("/proceed")
-	public Bag proceedBag(@RequestBody int id) {
+	public Bag proceedBag(@RequestBody long id) {
 		return bagService.proceedOrder(id);
 	}
 
 	@PutMapping("/cancel")
-	public Bag cancelBag(@RequestBody int id) {
+	public Bag cancelBag(@RequestBody long id) {
 		return bagService.cancelOrder(id);
 	}
 
