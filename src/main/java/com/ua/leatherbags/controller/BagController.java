@@ -4,6 +4,7 @@ import com.ua.leatherbags.dao.SliceWrapper;
 import com.ua.leatherbags.data.Bag;
 import com.ua.leatherbags.data.OrderStatus;
 import com.ua.leatherbags.service.BagService;
+import com.ua.leatherbags.service.TelegramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BagController {
 	private final BagService bagService;
+	private final TelegramService telegramService;
 
 	@GetMapping
 	public SliceWrapper<Bag> getBags(@RequestParam byte status,
@@ -23,7 +25,7 @@ public class BagController {
 	@PostMapping
 	public Bag addBag(@RequestBody Bag bag) {
 		bag = bagService.saveBag(bag);
-
+		telegramService.sendMessage(bag);
 		return bag;
 	}
 

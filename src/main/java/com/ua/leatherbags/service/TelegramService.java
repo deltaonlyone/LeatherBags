@@ -1,5 +1,6 @@
 package com.ua.leatherbags.service;
 
+import com.ua.leatherbags.data.Bag;
 import com.ua.leatherbags.telegramBot.TelegramMessageSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,14 @@ public class TelegramService {
     private final TelegramMessageSender telegramMessageSender;
 
 
-    public void sendMessage(String message) { //поміняти на об'єкт і сформувати повідомлення
-        telegramMessageSender.sendMessage(chatId,message);
+    public void sendMessage(Bag bag) {
+        String message = "Замовлення №" + bag.getId() +"\n" +
+                "ПІБ: "+bag.getFirstName()+" "+bag.getLastName()+" "+bag.getMiddleName()+"\n" +
+//                "Тел: "+bag.get+"\n" +
+                "Розмір: "+bag.getSize()+"\n" +
+                "Колір: "+bag.getColor()+"\n" +
+                "Місто: "+bag.getCity()+"\n" +
+                "Відділення нової пошти: "+ bag.getDepartment();
+        telegramMessageSender.sendMessage(chatId,message,bag.getId());
     }
 }
