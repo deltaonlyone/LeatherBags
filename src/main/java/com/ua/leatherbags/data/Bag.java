@@ -28,6 +28,9 @@ public class 	Bag {
 	@Column(name = "middle_name")
 	private String middleName;
 
+	@Column(name = "phone_num")
+	private String phoneNum;
+
 	@Column(name = "order_date")
 	private LocalDateTime orderDate;
 
