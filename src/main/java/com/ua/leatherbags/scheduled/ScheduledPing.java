@@ -10,7 +10,10 @@ import org.springframework.web.client.RestTemplate;
 public class ScheduledPing {
 	@Scheduled(fixedDelay = 60000)
 	public void ping() {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForEntity("https://leatherbags.onrender.com/api/ping", String.class);
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.getForEntity("https://leatherbags.onrender.com/api/ping", String.class);
+		} catch (Exception ignored) {
+		}
 	}
 }
