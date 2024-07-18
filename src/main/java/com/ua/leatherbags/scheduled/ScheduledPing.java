@@ -8,12 +8,12 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableScheduling
 public class ScheduledPing {
-	@Scheduled(fixedDelay = 60000)
-	public void ping() {
-		try {
-			RestTemplate restTemplate = new RestTemplate();
-			restTemplate.getForEntity("https://leatherbags.onrender.com/api/ping", String.class);
-		} catch (Exception ignored) {
-		}
-	}
+//	@Scheduled(fixedDelay = 60000)
+//	public void ping() {
+//		try {
+//			RestTemplate restTemplate = new RestTemplate();
+//			restTemplate.getForEntity("https://leatherbags.onrender.com/api/ping", String.class);
+//		} catch (Exception ignored) {
+//		}
+//	}
 }
