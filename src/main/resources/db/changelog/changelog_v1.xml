@@ -56,4 +56,12 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="2" author="lesnoi dmytro">
+        <addColumn tableName="bag">
+            <column name="key_holder" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
