@@ -1,9 +1,11 @@
-package com.ua.leatherbags.secutiry;
+package com.ua.leatherbags.config;
 
+import com.ua.leatherbags.secutiry.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -25,7 +27,18 @@ public class AllowedRequestsConfig {
 		http.authorizeHttpRequests((auth) -> auth
 						.requestMatchers(HttpMethod.POST,
 								"/bags",
-								"/auth/authenticate")
+								"/auth/login",
+								"/ping")
+						.permitAll()
+						.requestMatchers(HttpMethod.GET,
+								"/v2/api-docs/**",
+								"/v3/api-docs/**",
+								"/configuration/ui",
+								"/configuration/security",
+								"/swagger-resources/**",
+								"/webjars/**",
+								"/swagger-ui.html",
+								"/swagger-ui/**")
 						.permitAll()
 						.anyRequest().authenticated())
 				.csrf(AbstractHttpConfigurer::disable)
@@ -40,10 +53,9 @@ public class AllowedRequestsConfig {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {
+			public void addCorsMappings(@NonNull CorsRegistry registry) {
 				registry.addMapping("/api/**")
-						.allowedOrigins("http://localhost:63343",
-								"http://localhost:63342")
+						.allowedOrigins("http://localhost:3000")
 						.allowedMethods("*")
 						.allowedHeaders("*")
 						.allowCredentials(true);

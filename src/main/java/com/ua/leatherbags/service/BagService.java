@@ -1,12 +1,12 @@
 package com.ua.leatherbags.service;
 
 import com.ua.leatherbags.dao.BagRepository;
-import com.ua.leatherbags.dao.SliceWrapper;
+import com.ua.leatherbags.dao.PageWrapper;
 import com.ua.leatherbags.data.Bag;
 import com.ua.leatherbags.data.OrderStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +17,19 @@ import java.time.LocalDateTime;
 public class BagService {
 	private final BagRepository bagRepository;
 
-	public SliceWrapper<Bag> findBagsByStatus(byte status, int page, int size) {
+	public PageWrapper<Bag> findBagsByStatus(byte status, int page, int size) {
+		page--;
 		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
 
-		Slice<Bag> slice;
+		Page<Bag> resultPage;
 		if (status == OrderStatus.NOT_COMPLETED.getValue()) {
-			slice = bagRepository.findNotCompleted(pageRequest);
+			resultPage = bagRepository.findNotCompleted(pageRequest);
 		} else if (status == OrderStatus.ALL.getValue()) {
-			slice = bagRepository.findAll(pageRequest);
+			resultPage = bagRepository.findAll(pageRequest);
 		} else {
-			slice = bagRepository.findByStatus(status, pageRequest);
+			resultPage = bagRepository.findByStatus(status, pageRequest);
 		}
-		return new SliceWrapper<>(slice);
+		return new PageWrapper<>(resultPage);
 	}
 
 	public Bag saveBag(Bag bag) {
