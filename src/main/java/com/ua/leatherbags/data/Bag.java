@@ -43,6 +43,9 @@ public class 	Bag {
 	@Column(name = "size")
 	private String size;
 
+	@Column(name = "type")
+	private String type;
+
 	@Column(name = "city")
 	private String city;
 
