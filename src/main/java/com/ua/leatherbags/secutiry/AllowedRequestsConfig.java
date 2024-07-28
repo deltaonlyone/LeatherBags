@@ -25,7 +25,7 @@ public class AllowedRequestsConfig {
 		http.authorizeHttpRequests((auth) -> auth
 						.requestMatchers(HttpMethod.POST,
 								"/bags",
-								"/auth/authenticate")
+								"/auth/login")
 						.permitAll()
 						.anyRequest().authenticated())
 				.csrf(AbstractHttpConfigurer::disable)
@@ -42,8 +42,7 @@ public class AllowedRequestsConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/**")
-						.allowedOrigins("http://localhost:63343",
-								"http://localhost:63342")
+						.allowedOrigins("http://localhost:3000")
 						.allowedMethods("*")
 						.allowedHeaders("*")
 						.allowCredentials(true);
