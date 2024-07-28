@@ -64,4 +64,12 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="3" author="lesnoi dmytro">
+        <addColumn tableName="bag">
+            <column name="price" type="MONEY">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -68,6 +68,10 @@ public class Bag {
 	@Schema(example = "Department 54, Rusovyx St., 2")
 	private String department;
 
+	@Column(name = "price")
+	@Schema(example = "199.99")
+	private String price;
+
 	@Column(name = "status")
 	@JsonIgnore
 	private byte status;
