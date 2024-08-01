@@ -10,23 +10,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TelegramService {
 
-    @Value("${bot.chatId}")
-    private Long chatId;
+	@Value("${bot.chatId}")
+	private Long chatId;
 
-    private final TelegramMessageSender telegramMessageSender;
+	private final TelegramMessageSender telegramMessageSender;
 
-
-    public void sendMessage(Bag bag) {
-        String message = "Замовлення №" + bag.getId() + "\n" +
-                "ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + "\n" +
-                "Тел: " + bag.getPhoneNum() + "\n" +
-                "Тип: " + bag.getType() + "\n" +
-                "Ключниця: " + (bag.isKeyHolder() ? "Є" : "Нема") + "\n" +
-                "Розмір: " + bag.getSize() + "\n" +
-                "Колір: " + bag.getColor() + "\n" +
-                "Місто: " + bag.getCity() + "\n" +
-                "Відділення нової пошти: " + bag.getDepartment() +
-                "Ціна: " + bag.getPrice() + "\n";
-        telegramMessageSender.sendMessage(chatId, message, bag.getId());
+  public void sendMessage(Bag bag) {
+      String message = "Замовлення №" + bag.getId() + "\n" +
+              "ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + "\n" +
+              "Тел: " + bag.getPhoneNum() + "\n" +
+              "Тип: " + bag.getType() + "\n" +
+              "Ключниця: " + (bag.isKeyHolder() ? "Є" : "Нема") + "\n" +
+              "Розмір: " + bag.getSize() + "\n" +
+              "Колір: " + bag.getColor() + "\n" +
+              "Місто: " + bag.getCity() + "\n" +
+              "Відділення нової пошти: " + bag.getDepartment() +
+              "Ціна: " + bag.getPrice() + "\n";
+      telegramMessageSender.sendMessage(chatId, message, bag.getId());
     }
 }
