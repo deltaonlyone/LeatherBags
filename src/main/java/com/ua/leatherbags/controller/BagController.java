@@ -4,6 +4,7 @@ import com.ua.leatherbags.dao.PageWrapper;
 import com.ua.leatherbags.data.Bag;
 import com.ua.leatherbags.data.OrderStatus;
 import com.ua.leatherbags.service.BagService;
+import com.ua.leatherbags.service.TelegramService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 )
 public class BagController {
 	private final BagService bagService;
+	private final TelegramService telegramService;
 
 	@GetMapping
 	@Operation(
@@ -97,7 +99,7 @@ public class BagController {
 	@SecurityRequirements()
 	public Bag addBag(@RequestBody Bag bag) {
 		bag = bagService.saveBag(bag);
-
+		telegramService.sendMessage(bag);
 		return bag;
 	}
 
