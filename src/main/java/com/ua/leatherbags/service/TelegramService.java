@@ -15,15 +15,17 @@ public class TelegramService {
 
 	private final TelegramMessageSender telegramMessageSender;
 
-
-	public void sendMessage(Bag bag) {
-		String message = "Замовлення №" + bag.getId() + "\n" +
-				"ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + " " + bag.getMiddleName() + "\n" +
-				"Тел: " + bag.getPhoneNum() + "\n" +
-				"Розмір: " + bag.getSize() + "\n" +
-				"Колір: " + bag.getColor() + "\n" +
-				"Місто: " + bag.getCity() + "\n" +
-				"Відділення нової пошти: " + bag.getDepartment();
-		telegramMessageSender.sendMessage(chatId, message, bag.getId());
-	}
+  public void sendMessage(Bag bag) {
+      String message = "Замовлення №" + bag.getId() + "\n" +
+              "ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + "\n" +
+              "Тел: " + bag.getPhoneNum() + "\n" +
+              "Тип: " + bag.getType() + "\n" +
+              "Ключниця: " + (bag.isKeyHolder() ? "Є" : "Нема") + "\n" +
+              "Розмір: " + bag.getSize() + "\n" +
+              "Колір: " + bag.getColor() + "\n" +
+              "Місто: " + bag.getCity() + "\n" +
+              "Відділення нової пошти: " + bag.getDepartment() +
+              "Ціна: " + bag.getPrice() + "\n";
+      telegramMessageSender.sendMessage(chatId, message, bag.getId());
+    }
 }
