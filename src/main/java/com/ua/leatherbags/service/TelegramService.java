@@ -24,7 +24,7 @@ public class TelegramService {
               "Розмір: " + bag.getSize() + "\n" +
               "Колір: " + bag.getColor() + "\n" +
               "Місто: " + bag.getCity() + "\n" +
-              "Відділення нової пошти: " + bag.getDepartment() +
+              "Відділення нової пошти: " + bag.getDepartment() + "\n" +
               "Ціна: " + bag.getPrice() + "\n";
       telegramMessageSender.sendMessage(chatId, message, bag.getId());
     }
