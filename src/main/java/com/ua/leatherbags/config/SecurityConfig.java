@@ -1,4 +1,4 @@
-package com.ua.leatherbags.secutiry;
+package com.ua.leatherbags.config;
 
 import com.ua.leatherbags.data.User;
 import jakarta.annotation.PostConstruct;
