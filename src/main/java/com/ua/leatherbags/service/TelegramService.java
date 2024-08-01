@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TelegramService {
 
-    @Value("${bot.chatId}")
-    private Long chatId;
+	@Value("${bot.chatId}")
+	private Long chatId;
 
-    private final TelegramMessageSender telegramMessageSender;
+	private final TelegramMessageSender telegramMessageSender;
 
 
-    public void sendMessage(Bag bag) {
-        String message = "Замовлення №" + bag.getId() +"\n" +
-                "ПІБ: "+bag.getFirstName()+" "+bag.getLastName()+" "+bag.getMiddleName()+"\n" +
-//                "Тел: "+bag.get+"\n" +
-                "Розмір: "+bag.getSize()+"\n" +
-                "Колір: "+bag.getColor()+"\n" +
-                "Місто: "+bag.getCity()+"\n" +
-                "Відділення нової пошти: "+ bag.getDepartment();
-        telegramMessageSender.sendMessage(chatId,message,bag.getId());
-    }
+	public void sendMessage(Bag bag) {
+		String message = "Замовлення №" + bag.getId() + "\n" +
+				"ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + " " + bag.getMiddleName() + "\n" +
+				"Тел: " + bag.getPhoneNum() + "\n" +
+				"Розмір: " + bag.getSize() + "\n" +
+				"Колір: " + bag.getColor() + "\n" +
+				"Місто: " + bag.getCity() + "\n" +
+				"Відділення нової пошти: " + bag.getDepartment();
+		telegramMessageSender.sendMessage(chatId, message, bag.getId());
+	}
 }

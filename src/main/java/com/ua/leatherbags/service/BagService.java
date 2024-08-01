@@ -33,6 +33,7 @@ public class BagService {
 	}
 
 	public Bag saveBag(Bag bag) {
+		bag.setId(0);
 		bag.setStatus(OrderStatus.ORDERED.getValue());
 		bag.setOrderDate(LocalDateTime.now());
 		bag.setModifyDate(LocalDateTime.now());

@@ -70,9 +70,11 @@ public class Bag {
 
 	@Column(name = "price")
 	@Schema(example = "199.99")
-	private String price;
+	private double price;
 
 	@Column(name = "status")
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY,
+			example = "0")
 	@JsonIgnore
 	private byte status;
 
