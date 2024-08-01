@@ -17,13 +17,16 @@ public class TelegramService {
 
 
     public void sendMessage(Bag bag) {
-        String message = "Замовлення №" + bag.getId() +"\n" +
-                "ПІБ: "+bag.getFirstName()+" "+bag.getLastName()+" "+bag.getMiddleName()+"\n" +
-//                "Тел: "+bag.get+"\n" +
-                "Розмір: "+bag.getSize()+"\n" +
-                "Колір: "+bag.getColor()+"\n" +
-                "Місто: "+bag.getCity()+"\n" +
-                "Відділення нової пошти: "+ bag.getDepartment();
-        telegramMessageSender.sendMessage(chatId,message,bag.getId());
+        String message = "Замовлення №" + bag.getId() + "\n" +
+                "ПІБ: " + bag.getFirstName() + " " + bag.getLastName() + "\n" +
+                "Тел: " + bag.getPhoneNum() + "\n" +
+                "Тип: " + bag.getType() + "\n" +
+                "Ключниця: " + (bag.isKeyHolder() ? "Є" : "Нема") + "\n" +
+                "Розмір: " + bag.getSize() + "\n" +
+                "Колір: " + bag.getColor() + "\n" +
+                "Місто: " + bag.getCity() + "\n" +
+                "Відділення нової пошти: " + bag.getDepartment() +
+                "Ціна: " + bag.getPrice() + "\n";
+        telegramMessageSender.sendMessage(chatId, message, bag.getId());
     }
 }

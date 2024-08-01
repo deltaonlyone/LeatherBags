@@ -14,8 +14,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 @Component
 @AllArgsConstructor
@@ -24,7 +23,6 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
     private final BotConfig botConfig;
     private final BagService bagService;
 
-    private final Map<Long, Integer> lastMessageId = new ConcurrentHashMap<>();
 
     @Override
     public String getBotUsername() {
@@ -49,7 +47,7 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
                     String callbackData = update.getCallbackQuery().getData();
                     String[] dataParts = callbackData.split(":");
                     String action = dataParts[0];
-                    Long bagId = Long.parseLong(dataParts[1]);
+                    long bagId = Long.parseLong(dataParts[1]);
 
                     SendMessage sendMessage = new SendMessage();
                     sendMessage.setChatId(String.valueOf(chatId));
@@ -65,7 +63,7 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
                     execute(sendMessage);
 
                 } catch (TelegramApiException e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
             }
         }
@@ -74,6 +72,21 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
     public void sendMessage(Long chatId, String textToSend, Long bagId) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
+        List<List<InlineKeyboardButton>> rowList = getLists(bagId);
+        inlineKeyboardMarkup.setKeyboard(rowList);
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(String.valueOf(chatId));
+        sendMessage.setText(textToSend);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        try {
+            execute(sendMessage);
+        } catch (TelegramApiException e) {
+            e.fillInStackTrace();
+        }
+    }
+
+    private static List<List<InlineKeyboardButton>> getLists(Long bagId) {
         InlineKeyboardButton confirmButton = new InlineKeyboardButton();
         confirmButton.setText("Замовлення підтверджено");
         confirmButton.setCallbackData("confirm:" + bagId);
@@ -88,18 +101,7 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
-        inlineKeyboardMarkup.setKeyboard(rowList);
-
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(String.valueOf(chatId));
-        sendMessage.setText(textToSend);
-        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
-        try {
-            execute(sendMessage);
-            lastMessageId.put(chatId, sendMessage.getMessageThreadId());
-        } catch (TelegramApiException e) {
-            e.fillInStackTrace();
-        }
+        return rowList;
     }
 
     private void removeInlineButtons(Long chatId, Integer messageId) {
@@ -115,7 +117,7 @@ public class TelegramMessageSender extends TelegramLongPollingBot {
         try {
             execute(editMessageReplyMarkup);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
     }
 }
