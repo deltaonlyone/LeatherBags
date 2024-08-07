@@ -39,9 +39,11 @@ public class Bag {
 	private String phoneNum;
 
 	@Column(name = "order_date")
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	private LocalDateTime orderDate;
 
 	@Column(name = "modify_date")
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	private LocalDateTime modifyDate;
 
 	@Column(name = "color")
