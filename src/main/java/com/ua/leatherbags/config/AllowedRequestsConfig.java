@@ -25,7 +25,7 @@ public class AllowedRequestsConfig {
 	private final JwtAuthenticationFilter jwtAuthFilter;
 	private final AuthenticationProvider authenticationProvider;
 
-	@Value("${ALLOWED_ORIGIN}")
+	@Value("${origin.allowed}")
 	private String allowedOrigin;
 
 	@Bean
@@ -61,7 +61,7 @@ public class AllowedRequestsConfig {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
-				registry.addMapping("/api/**")
+				registry.addMapping("/**")
 						.allowedOrigins(allowedOrigin)
 						.allowedMethods("*")
 						.allowedHeaders("*")
